@@ -10,7 +10,8 @@ Create a mini-game « Capture the flag, Lions VERSUS Antelopes » in C++ :
 
 ·               Something only with ASCII can even do the job!
 
-·         You can start on any existing free framework : a simple directX sample would be perfect
+·         You can start on any existing free framework : a simple directX
+			sample would be perfect
 
 ·         Flow:
 
@@ -36,9 +37,11 @@ Create a mini-game « Capture the flag, Lions VERSUS Antelopes » in C++ :
 
 ·               On each side: a flag
 
-§  Each team tries to grab the enemy flag and to bring it back to its own flag that must be in its stand in order to score a point.
+§  Each team tries to grab the enemy flag and to bring it back to its own
+	flag that must be in its stand in order to score a point.
 
-§  When a lion or an antelope is killed, it reappears to its starting point after a few seconds.
+§  When a lion or an antelope is killed, it reappears to its starting point
+	after a few seconds.
 
 ·         We are interested to see in the code:
 
