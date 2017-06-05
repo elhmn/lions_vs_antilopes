@@ -1,5 +1,9 @@
 #vim
 .*.sw*
+
 #exec
 *.exe
 *.out
+
+#obj
+*.o
