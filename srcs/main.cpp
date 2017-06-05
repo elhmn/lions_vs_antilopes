@@ -3,11 +3,12 @@
 #include <unistd.h>
 #include <time.h>
 
-#define SIZE_H			50
-#define SIZE_W			100
+#define SIZE_H			30
+#define SIZE_W			60
 #define FPS				30
 #define SECOND			1000000.
 #define CLEAR()			printf("\033[H\033[2J")
+// FLAGS ◇ ◆
 
 int		main(int ac, char **av)
 {
