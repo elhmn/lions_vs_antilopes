@@ -10,6 +10,7 @@
 #define CLEAR()			printf("\033[H\033[2J")
 // FLAGS ◇ ◆
 
+/*
 int		main(int ac, char **av)
 {
 	int		i;
@@ -50,4 +51,35 @@ int		main(int ac, char **av)
 		}
 		usleep(SECOND / FPS);
 	}
+}
+*/
+
+/*
+** TODO
+**	Game header							OK
+**	Object header						OK
+**	Lion header							OK
+**	Antilope header						OK
+**	FLag header							OK
+**	Block header						OK
+**	Team header							...
+**	Map header							...
+**	RenderManager header				...
+**	GameManager header					...
+**	ObjectManager header			 	...
+**	RenderManager header				...
+**
+**	Then implement the actual cpp source
+*/
+
+int		main(void)
+{
+	Game		*game;
+
+	if (!(game = Game::getInstance()))
+		ERROR("game set to NULL");
+	game->init();
+	game->run();
+	game->clear();
+	return (0);
 }
