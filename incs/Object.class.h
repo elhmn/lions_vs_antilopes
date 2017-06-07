@@ -36,7 +36,6 @@ class		Object
 
 // Setters
 	void				setType(const e_objType type);
-	void				setPos(const int x, const int y);
 	void				setSprite1(const char sprite);
 	void				setSprite2(const char sprite);
 	void				setSpeed(float speed);
@@ -44,13 +43,13 @@ class		Object
 	public :
 
 /*
-** constructors
+** Constructors
 */
 	Object(void);
 	Object(const Object &rhs);
 
 /*
-** destructor
+** Destructor
 */
 	~Object(void);
 
@@ -64,20 +63,23 @@ class		Object
 */
 
 	// Actions
-	virtual void		update(void) const;
+ 	virtual void		update(void);
 
 
 	// Getters
-	e_objType			getType(void) const;
-	t_pos				getPos(void) const;
-	char				getSprite1(void) const;
-	char				getSprite2(void) const;
+	const e_objType		getType(void) const;
+	const t_pos			&getPos(void) const;
+	const char			getSprite1(void) const;
+	const char			getSprite2(void) const;
+	const float			getSpeed(void) const;
 
+	// Setters
+	void				setPos(const int x, const int y);
 /*
 ** Non member functions 
 */
 	// Getters
-	static int			getCount(void);
+	static const int	getCount(void);
 };
 
 #endif
