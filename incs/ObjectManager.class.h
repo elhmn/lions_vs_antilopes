@@ -50,6 +50,7 @@ class		ObjectManager
 	// Actions
 	void						destroy(void);
 	void						spawn(void);
+	void						update(void);
 };
 
 #endif

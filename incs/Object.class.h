@@ -27,8 +27,7 @@ class		Object
 	e_objType			_type;
 	t_pos				_pos;
 	float				_speed;
-	char				_sprite1;
-	char				_sprite2;
+	bool				_hasFlag;
 
 /*
 ** Member functions 
@@ -36,8 +35,6 @@ class		Object
 
 // Setters
 	void				setType(const e_objType type);
-	void				setSprite1(const char sprite);
-	void				setSprite2(const char sprite);
 	void				setSpeed(float speed);
 
 	public :
@@ -69,8 +66,6 @@ class		Object
 	// Getters
 	const e_objType		getType(void) const;
 	const t_pos			&getPos(void) const;
-	const char			getSprite1(void) const;
-	const char			getSprite2(void) const;
 	const float			getSpeed(void) const;
 
 	// Setters

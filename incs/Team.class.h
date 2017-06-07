@@ -15,11 +15,11 @@ class	Team
 /*
 ** Member variables
 */
+	const char			*_name;
+	e_objType			_type;
 	int					_points;
-	int					_alifeCount;
 	int					_memberCount;
-	char				*_name;
-	Object				*_flag;
+	Object				*_flag;// still don't know how to handle that
 	Object				**_members;
 
 	public :
@@ -27,6 +27,7 @@ class	Team
 ** Constructors
 */
 	Team(void);
+	Team(const char *name, e_objType type, int memberCount);
 	Team(const Team &rhs);
 
 /*
@@ -44,12 +45,17 @@ class	Team
 */
 	//Getters
 	int					getPoints(void) const;
-	int					getAlifeCount(void) const;
 	int					getMemberCount(void) const;
-	char				*getName(void) const;
+	const char			*getName(void) const;
 	Object				*getFlag(void) const;
 	Object				*getMember(int i) const;
 	Object				**getMembers(void) const;
+
+/*
+** Actions
+*/
+	void				place(void) const;
+
 };
 
 #endif

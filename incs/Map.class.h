@@ -1,6 +1,8 @@
 #ifndef MAP_CLASS_H
 # define MAP_CLASS_H
 
+# include <iostream>
+
 class	Map
 {
 	private :
@@ -22,6 +24,7 @@ class	Map
 ** Constructors
 */
 	Map(void);
+	Map(const char *filePath);
 	Map(const Map &rhs);
 
 /*
@@ -42,5 +45,7 @@ class	Map
 	int					getWidth(void) const;
 	int					getHeight(void) const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Map& rhs);
 
 #endif

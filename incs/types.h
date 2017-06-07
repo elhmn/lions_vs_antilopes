@@ -1,5 +1,7 @@
 #ifndef TYPES_H
-# define TYPE_H
+# define TYPES_H
+
+# define TAB		'\t'
 
 typedef struct		s_pos
 {
@@ -9,7 +11,7 @@ typedef struct		s_pos
 
 enum				e_objType
 {
-	LION = 0,
+	LION = 1,
 	ANTILOPE,
 	FLAG,
 	BLOCK,

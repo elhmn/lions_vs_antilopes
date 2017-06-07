@@ -8,6 +8,10 @@
 # include "Team.class.h"
 # include "Object.class.h"
 # include "Map.class.h"
+# include "load_map.h"
+
+# define FPS				30
+# define SECOND			1000000.
 
 class		Game
 {
@@ -69,7 +73,7 @@ class		Game
 */
 
 	// Actions
-	void				init(void);
+	void				init(const char *levelPath = LEVEL_PATH);
 	void				run(void);
 	void				clean(void);
 

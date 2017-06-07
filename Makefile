@@ -1,7 +1,11 @@
 NAME = game
 
 SRC = main.cpp Game.class.cpp error.cpp Object.class.cpp Lion.class.cpp \
-		Flag.class.cpp Block.class.cpp Team.class.cpp Map.class.cpp
+		Flag.class.cpp Block.class.cpp Team.class.cpp Map.class.cpp     \
+		load_map.cpp Factory.class.cpp Antilope.class.cpp               \
+		RenderManager.class.cpp GameManager.class.cpp                   \
+		ObjectManager.class.cpp AIManager.class.cpp
+
 SRC_DIR = ./srcs/
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 
@@ -20,10 +24,14 @@ CC = g++
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(INCLUDES) -o $(NAME) $(OBJS)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 
 $(OBJS): $(SRCS)
 	$(CC) $(FLAG) $(INCLUDES) -c $(SRCS) && mv $(OBJ) $(OBJ_DIR)
+
+unicode: $(SRCS)
+	$(CC) $(FLAG) $(INCLUDES)  -DUNICODE -c $(SRCS) && mv $(OBJ) $(OBJ_DIR)
+	$(CC) $(FLAGS) -o $(NAME) $(OBJS)
 
 clean:
 	rm -f $(OBJS)

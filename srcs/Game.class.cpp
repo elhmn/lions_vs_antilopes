@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Game.class.h"
 #include "error.h"
+#include <unistd.h>
+#include <time.h>
 
 /*
 ** Non member variables
@@ -103,14 +105,56 @@ ObjectManager	*Game::getObjectManager(void) const
 ** Actions
 */
 
-void			Game::init(void)
+static void		setObjectList(Object ***objects)
 {
-	std::cout << "I init !" << std::endl;//_DEBUG_//
+	int			i;
+	int			j;
+	int			count;
+
+	if (!objects)
+		ERROR("objects set to null");
+	i = -1;
+	j = -1;
+	count = Object::getCount();
+	while (++i < count
+			|| i < Game::getInstance()->getLions()->getMemberCount())
+		objects[0][i] = Game::getInstance()->getLions()->getMember(++j);
+	j = -1;
+	i--;
+	while (++i < count
+			|| i < Game::getInstance()->getAntilopes()->getMemberCount())
+		objects[0][i] = Game::getInstance()->getAntilopes()->getMember(++j);
+}
+
+void			Game::init(const char *levelPath)
+{
+	if (!(this->_map = new Map(levelPath)))
+		ERROR("BAD ALLOC");
+	if (!(this->_lions = new Team("lions", LION, 5)))
+		ERROR("BAD ALLOC");
+	if (!(this->_antilopes = new Team("antilope", ANTILOPE, 20)))
+		ERROR("BAD ALLOC");
+ 	if (!(this->_objects
+			= (Object**)malloc(sizeof(Object*) * Object::getCount())))
+ 		ERROR("BAD ALLOC");
+	setObjectList(&this->_objects);
+	this->_renderManager = RenderManager::getInstance();
+	this->_aiManager = AIManager::getInstance();
+	this->_gameManager = GameManager::getInstance();
+	this->_objectManager = ObjectManager::getInstance();
 }
 
 void			Game::run(void)
 {
-	std::cout << "I run !" << std::endl;//_DEBUG_//
+	while (42)
+	{
+		this->_aiManager->simulate();
+		this->_objectManager->update();
+		this->_gameManager->update();
+		this->_renderManager->render();
+		//very basic FPS handler it could've been better
+		usleep(SECOND / FPS);
+	}
 }
 
 void			Game::clean(void)

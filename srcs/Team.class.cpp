@@ -1,5 +1,7 @@
 #include "Team.class.h"
 #include <iostream>
+#include "Factory.class.h"
+#include "error.h"
 
 /*
 ** Non member variables
@@ -17,6 +19,23 @@ Team::Team(void)
 	{
 		std::cout << "Team constructor called !" << std::endl;
 	}
+}
+
+Team::Team(const char *name, e_objType type, int memberCount) : _name(name), _type(type), _memberCount(memberCount)
+{
+	int		i;
+
+	i = -1;
+	if (Team::_verbose)
+	{
+		std::cout << "Team constructor called !" << std::endl;
+	}
+	this->_points = 0;
+	if (!(this->_members = (Object**)malloc(sizeof(Object*) * this->_memberCount)))
+		ERROR("BAD ALLOC");
+	while (++i < this->_memberCount)
+		if (!(this->_members[i] = Factory::getInstance()->create(type)))
+			ERROR("BAD ALLOC");
 }
 
 /*
@@ -43,17 +62,12 @@ int				Team::getPoints(void) const
 	return (this->_points);
 }
 
-int				Team::getAlifeCount(void) const
-{
-	return (this->_alifeCount);
-}
-
 int				Team::getMemberCount(void) const
 {
 	return (this->_points);
 }
 
-char			*Team::getName(void) const
+const char		*Team::getName(void) const
 {
 	return (this->_name);
 }

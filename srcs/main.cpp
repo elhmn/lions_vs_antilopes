@@ -6,13 +6,14 @@
 #include "Game.class.h"
 #include "Object.class.h"//_DEBUG_//
 #include "Lion.class.h"//_DEBUG_//
+#include "load_map.h"//_DEBUG_//
 
 
 #define SIZE_H			30
 #define SIZE_W			60
-#define FPS				30
-#define SECOND			1000000.
-#define CLEAR()			printf("\033[H\033[2J")
+// #define FPS				30
+// #define SECOND			1000000.
+// #define CLEAR()			printf("\033[H\033[2J")
 // FLAGS ◇ ◆
 
 /*
@@ -89,15 +90,20 @@ int		main(int ac, char **av)
 **	gamemanager dummy source				...
 **	objectmanager dummy source			 	...
 **	aimanager dummy source			 		...
+**
+** May be delete Blocks
 */
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	Game		*game;
 
 	if (!(game = Game::getInstance()))
 		ERROR("game set to NULL");
-	game->init();
+	if (ac > 1)
+		game->init(av[1]);
+	else
+		game->init();
 	game->run();
 	game->clean();
 	return (0);

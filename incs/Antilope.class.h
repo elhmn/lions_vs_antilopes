@@ -1,6 +1,8 @@
 #ifndef ANTILOPE_CLASS_H
 # define ANTILOPE_CLASS_H
 
+# include "Object.class.h"
+
 class	Antilope : public Object
 {
 
