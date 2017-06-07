@@ -35,7 +35,7 @@ class		ObjectManager
 */
 
 	// Singleton getInstance
-	static ObjectManager		*getInstance(void) const;
+	static ObjectManager		*getInstance(void);
 
 /*
 ** Operators overload

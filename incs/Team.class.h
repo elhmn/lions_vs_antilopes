@@ -1,7 +1,9 @@
 #ifndef TEAM_CLASS_H
 # define TEAM_CLASS_H
 
-class	Team :
+# include "Object.class.h"
+
+class	Team
 {
 	private :
 

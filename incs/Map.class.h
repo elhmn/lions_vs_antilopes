@@ -1,7 +1,9 @@
 #ifndef MAP_CLASS_H
 # define MAP_CLASS_H
 
-class	Map :
+# include "Object.class.h"
+
+class	Map
 {
 	private :
 

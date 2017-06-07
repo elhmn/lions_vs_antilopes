@@ -31,7 +31,7 @@ class		GameManager
 */
 
 	// Singleton getInstance
-	static GameManager			*getInstance(void) const;
+	static GameManager			*getInstance(void);
 
 /*
 ** Operators overload

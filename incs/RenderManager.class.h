@@ -35,7 +35,7 @@ class		RenderManager
 */
 
 	// Singleton getInstance
-	static RenderManager		*getInstance(void) const;
+	static RenderManager		*getInstance(void);
 
 /*
 ** Operators overload

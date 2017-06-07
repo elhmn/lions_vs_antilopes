@@ -12,7 +12,8 @@ enum				e_objType
 	LION = 0,
 	ANTILOPE,
 	FLAG,
-	BLOCK
+	BLOCK,
+	NONE,
 };
 
 #endif

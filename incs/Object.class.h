@@ -35,7 +35,7 @@ class		Object
 */
 
 // Setters
-	void				setType(const e_type type);
+	void				setType(const e_objType type);
 	void				setPos(const int x, const int y);
 	void				setSprite1(const char sprite);
 	void				setSprite2(const char sprite);
@@ -46,13 +46,13 @@ class		Object
 /*
 ** constructors
 */
-	object(void);
-	object(const object &rhs);
+	Object(void);
+	Object(const Object &rhs);
 
 /*
 ** destructor
 */
-	~object(void);
+	~Object(void);
 
 /*
 ** Operators overload
@@ -77,7 +77,7 @@ class		Object
 ** Non member functions 
 */
 	// Getters
-	static int			getCount(void) const;
+	static int			getCount(void);
 };
 
 #endif

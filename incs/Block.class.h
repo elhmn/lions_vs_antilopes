@@ -1,6 +1,8 @@
 #ifndef BLOCK_CLASS_H
 # define BLOCK_CLASS_H
 
+# include "Object.class.h"
+
 class	Block : public Object
 {
 	public :
@@ -24,3 +26,5 @@ class	Block : public Object
 ** Member functions 
 */
 };
+
+#endif

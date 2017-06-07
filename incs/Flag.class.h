@@ -1,6 +1,8 @@
 #ifndef FLAG_CLASS_H
 # define FLAG_CLASS_H
 
+# include "Object.class.h"
+
 class	Flag : public Object
 {
 	public :
@@ -24,3 +26,5 @@ class	Flag : public Object
 ** Member functions 
 */
 };
+
+#endif
