@@ -4,6 +4,9 @@
 #include <time.h>
 #include "error.h"
 #include "Game.class.h"
+#include "Object.class.h"//_DEBUG_//
+#include "Lion.class.h"//_DEBUG_//
+
 
 #define SIZE_H			30
 #define SIZE_W			60
@@ -75,13 +78,13 @@ int		main(int ac, char **av)
 **	Then implement the actual cpp source
 **
 **	game dummy source						ok
-**	object dummy source						...
-**	lion dummy source						...
-**	antilope dummy source					...
-**	flag dummy source						...
-**	block dummy source						...
-**	team dummy source						...
-**	map dummy source						...
+**	object dummy source						ok	
+**	lion dummy source						ok
+**	antilope dummy source					ok
+**	flag dummy source						ok
+**	block dummy source						ok
+**	team dummy source						ok
+**	map dummy source						ok
 **	rendermanager dummy source				...
 **	gamemanager dummy source				...
 **	objectmanager dummy source			 	...
@@ -96,6 +99,6 @@ int		main(void)
 		ERROR("game set to NULL");
 	game->init();
 	game->run();
-	game->clear();
+	game->clean();
 	return (0);
 }

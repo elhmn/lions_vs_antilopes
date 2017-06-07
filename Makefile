@@ -1,6 +1,7 @@
 NAME = game
 
-SRC = main.cpp Game.class.cpp Object.class.cpp error.cpp
+SRC = main.cpp Game.class.cpp error.cpp Object.class.cpp Lion.class.cpp \
+		Flag.class.cpp Block.class.cpp Team.class.cpp Map.class.cpp
 SRC_DIR = ./srcs/
 SRCS = $(addprefix $(SRC_DIR), $(SRC))
 

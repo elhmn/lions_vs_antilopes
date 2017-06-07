@@ -3,12 +3,19 @@
 
 class	Antilope : public Object
 {
+
+	private :
+/*
+** Non Member variables
+*/
+	static bool			_verbose;
+
 	public :
 /*
 ** Constructors
 */
 	Antilope(void);
-	Antilope(const Object &rhs);
+	Antilope(const Antilope &rhs);
 
 /*
 ** Destructor

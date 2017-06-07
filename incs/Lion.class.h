@@ -1,14 +1,25 @@
 #ifndef LION_CLASS_H
 # define LION_CLASS_H
 
+# include "Object.class.h"
+
 class	Lion : public Object
 {
+
+	private :
+/*
+** Non Member variables
+*/
+	static bool			_verbose;
+
 	public :
+
+
 /*
 ** Constructors
 */
 	Lion(void);
-	Lion(const object &rhs);
+	Lion(const Lion &rhs);
 
 /*
 ** Destructor

@@ -113,7 +113,7 @@ void			Game::run(void)
 	std::cout << "I run !" << std::endl;//_DEBUG_//
 }
 
-void			Game::clear(void)
+void			Game::clean(void)
 {
-	std::cout << "I clear !" << std::endl;//_DEBUG_//
+	std::cout << "I clean !" << std::endl;//_DEBUG_//
 }

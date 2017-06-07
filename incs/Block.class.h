@@ -5,12 +5,18 @@
 
 class	Block : public Object
 {
+	private :
+/*
+** Non Member variables
+*/
+	static bool			_verbose;
+
 	public :
 /*
 ** Constructors
 */
 	Block(void);
-	Block(const Object &rhs);
+	Block(const Block &rhs);
 
 /*
 ** Destructor
@@ -21,10 +27,6 @@ class	Block : public Object
 ** Operators overload
 */
 	Block &operator=(const Block &rhs);
-
-/*
-** Member functions 
-*/
 };
 
 #endif

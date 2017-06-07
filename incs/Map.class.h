@@ -1,15 +1,13 @@
 #ifndef MAP_CLASS_H
 # define MAP_CLASS_H
 
-# include "Object.class.h"
-
 class	Map
 {
 	private :
 
 /*
 **	Non member variables
-*/	
+*/
 	static bool			_verbose;
 
 /*
@@ -24,7 +22,7 @@ class	Map
 ** Constructors
 */
 	Map(void);
-	Map(const Object &rhs);
+	Map(const Map &rhs);
 
 /*
 ** Destructor

@@ -20,14 +20,14 @@ class	Team
 	int					_memberCount;
 	char				*_name;
 	Object				*_flag;
-	Object				*_members;
+	Object				**_members;
 
 	public :
 /*
 ** Constructors
 */
 	Team(void);
-	Team(const Object &rhs);
+	Team(const Team &rhs);
 
 /*
 ** Destructor
@@ -46,7 +46,7 @@ class	Team
 	int					getPoints(void) const;
 	int					getAlifeCount(void) const;
 	int					getMemberCount(void) const;
-	char				getName(void) const;
+	char				*getName(void) const;
 	Object				*getFlag(void) const;
 	Object				*getMember(int i) const;
 	Object				**getMembers(void) const;

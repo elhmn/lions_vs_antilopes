@@ -104,5 +104,5 @@ const int		Object::getCount(void)
 
 void			Object::update(void)
 {
-	std::cout << "Object I am update" << std::endl;//_DEBUG_//
+	std::cout << "Object update !" << std::endl;//_DEBUG_//
 }

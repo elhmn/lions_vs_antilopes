@@ -71,7 +71,7 @@ class		Game
 	// Actions
 	void				init(void);
 	void				run(void);
-	void				clear(void);
+	void				clean(void);
 
 
 	// Getters

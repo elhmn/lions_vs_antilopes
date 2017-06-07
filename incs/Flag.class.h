@@ -5,12 +5,18 @@
 
 class	Flag : public Object
 {
+	private :
+/*
+** Non Member variables
+*/
+	static bool			_verbose;
+
 	public :
 /*
 ** Constructors
 */
 	Flag(void);
-	Flag(const Object &rhs);
+	Flag(const Flag &rhs);
 
 /*
 ** Destructor
@@ -25,6 +31,8 @@ class	Flag : public Object
 /*
 ** Member functions 
 */
+	// Actions
+	virtual void		update(void);
 };
 
 #endif
