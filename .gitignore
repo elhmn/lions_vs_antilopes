@@ -4,6 +4,7 @@
 #exec
 *.exe
 *.out
+game
 
 #obj
 *.o
