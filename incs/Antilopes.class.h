@@ -8,7 +8,7 @@ class	Antilope : public Object
 ** Constructors
 */
 	Antilope(void);
-	Antilope(const object &rhs);
+	Antilope(const Object &rhs);
 
 /*
 ** Destructor

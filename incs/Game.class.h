@@ -3,7 +3,7 @@
 
 class		Game
 {
-	private:
+	private :
 
 /*
 ** Non member variables
@@ -14,7 +14,7 @@ class		Game
 
 
 /*
-** Member variables 
+** Member variables
 */
 
 	// Game Attibutes
@@ -35,7 +35,7 @@ class		Game
 	Game(void);
 	Game(const Game &rhs);
 
-	public:
+	public :
 
 /*
 ** Destructor
@@ -57,7 +57,7 @@ class		Game
 
 
 /*
-** Member functions 
+** Member functions
 */
 
 	// Actions

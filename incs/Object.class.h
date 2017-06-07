@@ -5,14 +5,14 @@
 
 class		Object
 {
-	private:
+	private :
 
 /*
 **	Non member variables
 */
 	static int			_count; 
 
-	protected:
+	protected :
 
 /*
 **	Non member variables
@@ -41,7 +41,7 @@ class		Object
 	void				setSprite2(const char sprite);
 	void				setSpeed(float speed);
 
-	public:
+	public :
 
 /*
 ** constructors

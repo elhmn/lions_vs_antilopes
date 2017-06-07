@@ -8,7 +8,7 @@ class	Block : public Object
 ** Constructors
 */
 	Block(void);
-	Block(const object &rhs);
+	Block(const Object &rhs);
 
 /*
 ** Destructor

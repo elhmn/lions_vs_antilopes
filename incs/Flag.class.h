@@ -8,7 +8,7 @@ class	Flag : public Object
 ** Constructors
 */
 	Flag(void);
-	Flag(const object &rhs);
+	Flag(const Object &rhs);
 
 /*
 ** Destructor
