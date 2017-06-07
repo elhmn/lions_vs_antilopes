@@ -54,7 +54,7 @@ class	Team
 /*
 ** Actions
 */
-	void				place(void) const;
+	void				place(void);
 
 };
 

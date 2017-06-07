@@ -137,6 +137,10 @@ void			Game::init(const char *levelPath)
  	if (!(this->_objects
 			= (Object**)malloc(sizeof(Object*) * Object::getCount())))
  		ERROR("BAD ALLOC");
+
+	this->_lions->place();
+	this->_antilopes->place(); //En fonction de la pos des drapeaux
+
 	setObjectList(&this->_objects);
 	this->_renderManager = RenderManager::getInstance();
 	this->_aiManager = AIManager::getInstance();

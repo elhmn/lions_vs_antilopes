@@ -1,6 +1,7 @@
 #ifndef MAP_CLASS_H
 # define MAP_CLASS_H
 
+# include "types.h"
 # include <iostream>
 
 class	Map

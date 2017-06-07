@@ -1,7 +1,11 @@
 #include "Team.class.h"
-#include <iostream>
 #include "Factory.class.h"
+#include "Game.class.h"
+#include "Map.class.h"
 #include "error.h"
+#include <iostream>
+#include <cstdlib>
+#include <time.h>
 
 /*
 ** Non member variables
@@ -64,7 +68,7 @@ int				Team::getPoints(void) const
 
 int				Team::getMemberCount(void) const
 {
-	return (this->_points);
+	return(this->_memberCount);
 }
 
 const char		*Team::getName(void) const
@@ -87,4 +91,43 @@ Object			*Team::getMember(int i) const
 Object			**Team::getMembers(void) const
 {
 	return (this->_members);
+}
+
+/*
+** Actions
+*/
+void			Team::place(void)
+{
+	char	**map;
+	char	car;
+	int		w;
+	int		h;
+	int		count;
+	int		i;
+	int		r_x;
+	int		r_y;
+	
+	i = -1;
+	count = this->getMemberCount();
+	map = Game::getInstance()->getMap()->getTab();
+	w =  Game::getInstance()->getMap()->getWidth();
+	h =  Game::getInstance()->getMap()->getHeight();
+	srand(time(NULL));
+	while (++i < this->getMemberCount())
+	{
+		do
+		{
+			r_x = rand() % w;
+			r_y = rand() % h;
+		}
+		while (map[r_y][r_x] != M_EMPTY);
+		this->getMember(i)->setPos(r_x, r_y);
+		if (this->_type == LION)
+			car = M_LION;
+		else if (this->_type == ANTILOPE)
+			car = M_ANTILOPE;
+		else
+			ERROR("Object type unknown");
+		map[r_y][r_x] = car; 
+	}
 }

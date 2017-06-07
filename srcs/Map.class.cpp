@@ -27,8 +27,6 @@ Map::Map(const char *filePath)
 		std::cout << "Map constructor called !" << std::endl;
 	}
 	load_map(filePath, &this->_tab, &this->_width, &this->_height);
-// 	set correct characters
-	std::cout << *this;//_DEBUG_//
 }
 
 /*
