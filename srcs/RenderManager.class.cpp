@@ -83,17 +83,18 @@ void					RenderManager::render(void)
 				else
 					std::cout << M_RENDER_BLOCK;
 			}
-			else if (ret == M_FLAG_E1)
-				std::cout << M_RENDER_FLAG_E1;
-			else if (ret == M_FLAG_E2)
-				std::cout << M_RENDER_FLAG_E2;
+			else if (ret == M_FLAG_A)
+				std::cout << M_RENDER_FLAG_A;
+			else if (ret == M_FLAG_L)
+				std::cout << M_RENDER_FLAG_L;
 			else if (ret == M_LION)
 				std::cout << M_RENDER_LION;
 			else if (ret == M_ANTILOPE)
 				std::cout << M_RENDER_ANTILOPE;
+			else if (ret == M_LEAD)
+				std::cout << M_RENDER_LEAD;
 			else
 				std::cout << M_RENDER_EMPTY;
-
 		}
 		std::cout << std::endl;
 	}

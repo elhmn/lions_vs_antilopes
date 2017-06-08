@@ -9,7 +9,7 @@ class		AIManager
 ** Non member variables
 */
 
-	static bool					_verbose;
+	static bool				_verbose;
 	static AIManager		*_instance;
 
 /*

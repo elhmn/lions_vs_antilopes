@@ -12,6 +12,8 @@
 
 # define FPS				30
 # define SECOND			1000000.
+# define ANTILOPES_COUNT	50
+# define LIONS_COUNT		5
 
 class		Game
 {

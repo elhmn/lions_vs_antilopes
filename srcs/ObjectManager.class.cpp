@@ -1,5 +1,9 @@
 #include <iostream>
 #include "ObjectManager.class.h"
+#include "Map.class.h"
+#include "Object.class.h"
+#include "Game.class.h"
+#include "Team.class.h"
 #include "error.h"
 
 /*
@@ -64,5 +68,34 @@ void					ObjectManager::spawn(void)
 
 void					ObjectManager::update(void)
 {
+	int				i;
+	int				count;
+	Object			**o;
+	char			**map;
+	char			car;
+	int				x;
+	int				y;
+	int				w;
+	int				h;
+
+	i = -1;
+	o = Game::getInstance()->getObjects();
+	map = Game::getInstance()->getMap()->getTab();
+	w =  Game::getInstance()->getMap()->getWidth();
+	h =  Game::getInstance()->getMap()->getHeight();
+	count = Object::getCount();
+	while (++i < count)
+	{
+		x = o[i]->nextPos.x;
+		y = o[i]->nextPos.y;
+		if (x >= 0 && x < w && y >= 0 && y < h
+			&& map[y][x] == M_EMPTY)
+		{
+			car = map[o[i]->getPos().y][o[i]->getPos().x];
+			map[o[i]->getPos().y][o[i]->getPos().x] = M_EMPTY;
+			map[y][x] = car;
+			o[i]->setPos(x, y);
+		}
+	}
 	std::cout << "ObjectManager update !" << std::endl;//_DEBUG_//
 }

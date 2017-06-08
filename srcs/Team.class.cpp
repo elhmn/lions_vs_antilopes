@@ -1,6 +1,7 @@
 #include "Team.class.h"
 #include "Factory.class.h"
 #include "Game.class.h"
+#include "Antilope.class.h"
 #include "Map.class.h"
 #include "error.h"
 #include <iostream>
@@ -98,14 +99,19 @@ Object			**Team::getMembers(void) const
 */
 void			Team::place(void)
 {
-	char	**map;
-	char	car;
-	int		w;
-	int		h;
-	int		count;
-	int		i;
-	int		r_x;
-	int		r_y;
+	Antilope	*a;
+	t_pos		pos;
+	int			radTries;
+	int			sign;
+	char		**map;
+	char		car;
+	int			w;
+	int			h;
+	int			count;
+	int			i;
+	int			r_x;
+	int			r_y;
+	int			tmp;
 	
 	i = -1;
 	count = this->getMemberCount();
@@ -113,21 +119,50 @@ void			Team::place(void)
 	w =  Game::getInstance()->getMap()->getWidth();
 	h =  Game::getInstance()->getMap()->getHeight();
 	srand(time(NULL));
+	radTries = 0;
 	while (++i < this->getMemberCount())
 	{
-		do
-		{
-			r_x = rand() % w;
-			r_y = rand() % h;
-		}
-		while (map[r_y][r_x] != M_EMPTY);
-		this->getMember(i)->setPos(r_x, r_y);
 		if (this->_type == LION)
 			car = M_LION;
 		else if (this->_type == ANTILOPE)
 			car = M_ANTILOPE;
 		else
 			ERROR("Object type unknown");
+		do
+		{
+			r_x = rand() % w;
+			if (car == M_ANTILOPE || car == M_LEAD)
+			{
+				if (i < Antilope::getLeaderCount())
+				{
+					car = M_LEAD;
+					r_y = (rand() % h / 2) + h / 2;
+				}
+				else
+				{
+					if (radTries >= 100)
+					{
+						r_y = (rand() % h / 2) + h / 2;
+						radTries = 0;
+					}
+					else
+					{
+						//choose a leader
+						pos = this->_members[(tmp = rand() % Antilope::getLeaderCount())]->getPos();
+						a = dynamic_cast<Antilope*>(this->_members[i]);
+						a->setLeaderID(tmp);
+						sign = (rand() % 2) ? -1 : 1;
+						r_x = pos.x + (rand() % LEADER_RADIUS) * sign;
+						r_y = pos.y + (rand() % LEADER_RADIUS) * sign;
+						radTries++;
+					}
+				}
+			}
+			else
+				r_y = rand() % h / 2;
+		}
+		while (r_x >= w || r_x < 0 || r_y >= h || r_y < 0 || map[r_y][r_x] != M_EMPTY);
+		this->getMember(i)->setPos(r_x, r_y);
 		map[r_y][r_x] = car; 
 	}
 }

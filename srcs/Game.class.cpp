@@ -2,6 +2,7 @@
 #include "Game.class.h"
 #include "error.h"
 #include <unistd.h>
+#include <cstdlib>
 #include <time.h>
 
 /*
@@ -105,7 +106,7 @@ ObjectManager	*Game::getObjectManager(void) const
 ** Actions
 */
 
-static void		setObjectList(Object ***objects)
+static void		setObjectList(Object **objects)
 {
 	int			i;
 	int			j;
@@ -113,26 +114,33 @@ static void		setObjectList(Object ***objects)
 
 	if (!objects)
 		ERROR("objects set to null");
-	i = -1;
-	j = -1;
+	i = 0;
+	j = 0;
 	count = Object::getCount();
-	while (++i < count
-			|| i < Game::getInstance()->getLions()->getMemberCount())
-		objects[0][i] = Game::getInstance()->getLions()->getMember(++j);
-	j = -1;
-	i--;
-	while (++i < count
-			|| i < Game::getInstance()->getAntilopes()->getMemberCount())
-		objects[0][i] = Game::getInstance()->getAntilopes()->getMember(++j);
+	while (i < count)
+	{
+		objects[i++] = Game::getInstance()->getLions()->getMember(j++);
+		if (j >= Game::getInstance()->getLions()->getMemberCount())
+			break ;
+		std::cout << "Lions i = " << i << std::endl;
+	}
+	j = 0;
+	while (i < count)
+	{
+		objects[i++] = Game::getInstance()->getAntilopes()->getMember(j++);
+		if (j >= Game::getInstance()->getAntilopes()->getMemberCount())
+			break ;
+		std::cout << "Antilopes i = " << i << std::endl;
+	}
 }
 
 void			Game::init(const char *levelPath)
 {
 	if (!(this->_map = new Map(levelPath)))
 		ERROR("BAD ALLOC");
-	if (!(this->_lions = new Team("lions", LION, 5)))
+	if (!(this->_lions = new Team("lions", LION, LIONS_COUNT)))
 		ERROR("BAD ALLOC");
-	if (!(this->_antilopes = new Team("antilope", ANTILOPE, 20)))
+	if (!(this->_antilopes = new Team("antilope", ANTILOPE, ANTILOPES_COUNT)))
 		ERROR("BAD ALLOC");
  	if (!(this->_objects
 			= (Object**)malloc(sizeof(Object*) * Object::getCount())))
@@ -141,7 +149,7 @@ void			Game::init(const char *levelPath)
 	this->_lions->place();
 	this->_antilopes->place(); //En fonction de la pos des drapeaux
 
-	setObjectList(&this->_objects);
+	setObjectList(this->_objects);
 	this->_renderManager = RenderManager::getInstance();
 	this->_aiManager = AIManager::getInstance();
 	this->_gameManager = GameManager::getInstance();

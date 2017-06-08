@@ -3,6 +3,9 @@
 
 # include "Object.class.h"
 
+# define ANTILOPES_MAX_LEADER	10
+# define LEADER_RADIUS			3
+
 class	Antilope : public Object
 {
 
@@ -11,8 +14,17 @@ class	Antilope : public Object
 ** Non Member variables
 */
 	static bool			_verbose;
+	static int			_leaderCount;
+	static int			_nLeader;
+	int					_leaderID;
 
 	public :
+/*
+** Member variables
+*/
+
+	bool				_isLeader;
+
 /*
 ** Constructors
 */
@@ -30,10 +42,22 @@ class	Antilope : public Object
 	Antilope &operator=(const Antilope &rhs);
 
 /*
+** Getters
+*/
+	bool						getIsLeader(void) const;
+	int							getLeaderID(void) const;
+	static int					getLeaderCount(void);
+
+/*
+** Setters
+*/
+	void						setLeaderID(int id);
+	
+/*
 ** Member functions 
 */
 	// Actions
-	virtual void		update(void);
+	virtual void				update(void);
 };
 
 #endif

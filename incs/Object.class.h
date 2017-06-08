@@ -10,7 +10,6 @@ class		Object
 /*
 **	Non member variables
 */
-	static int			_count; 
 
 	protected :
 
@@ -19,6 +18,7 @@ class		Object
 */
 	
 	static bool			_verbose;
+	static int			_count; 
 
 /*
 ** Member variables 
@@ -39,6 +39,8 @@ class		Object
 
 	public :
 
+	t_pos				nextPos;
+	
 /*
 ** Constructors
 */

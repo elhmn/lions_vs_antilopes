@@ -8,16 +8,19 @@
 # define M_RENDER_BORD_V			"|"
 # define M_RENDER_BLOCK				"."
 
+
 #ifdef UNICODE
-	# define M_RENDER_FLAG_E1		"◇"
-	# define M_RENDER_FLAG_E2		"◆"
-	# define M_RENDER_LION			"○"
-	# define M_RENDER_ANTILOPE		"●"
+	#  define M_RENDER_FLAG_L		"◇"
+	#  define M_RENDER_FLAG_A		"◆"
+	#  define M_RENDER_LION			"○"
+	#  define M_RENDER_ANTILOPE		"●"
+	#  define M_RENDER_LEAD			"♚"
 # else
-	#  define M_RENDER_FLAG_E1		"A"
-	#  define M_RENDER_FLAG_E2		"L"
-	#  define M_RENDER_LION			"a"
-	#  define M_RENDER_ANTILOPE		"l"
+	#  define M_RENDER_FLAG_L		"L"
+	#  define M_RENDER_FLAG_A		"A"
+	#  define M_RENDER_LION			"l"
+	#  define M_RENDER_ANTILOPE		"a"
+	#  define M_RENDER_LEAD			"e"
 # endif
 
 class		RenderManager
