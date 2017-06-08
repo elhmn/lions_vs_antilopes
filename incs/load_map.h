@@ -8,6 +8,8 @@
 # define M_ANTILOPE			'5'
 # define M_EMPTY			' '
 # define M_LEAD				'x'
+# define M_JAM				'J'
+
 
 # define LEVEL_PATH     	"./levels/main.lvl"
 

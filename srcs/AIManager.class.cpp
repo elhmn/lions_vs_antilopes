@@ -1,7 +1,12 @@
 #include <iostream>
 #include <cstdlib>
+#include <cstring>
 #include <time.h>
+#include <list>
+#include <vector>
 #include "AIManager.class.h"
+#include "RenderManager.class.h"//_DEBUG_//
+#include <unistd.h>//_DEBUG_//
 #include "Game.class.h"
 #include "Map.class.h"
 #include "Object.class.h"
@@ -57,6 +62,177 @@ AIManager			*AIManager::getInstance(void)
 ** Actions
 */
 
+
+/*
+** Basic recursive Pathfinding algorithm
+*/
+
+char					**mapDup(char **map, int w, int h)
+{
+	char	**tmp;
+	int		i;
+
+	i = -1;
+	tmp = NULL;
+	if (!(tmp = (char**)malloc(sizeof(char*) * h + 1)))
+		ERROR("BAD ALLOC");
+	tmp[h] = NULL;
+	while (++i < h)
+	{
+		if (!(tmp[i] = (char*)malloc(sizeof(char) * w + 1)))
+			ERROR("BAD ALLOC");
+ 		tmp[i][w] = '\0';
+		memcpy(tmp[i], map[i], w);
+	}
+	return (tmp);
+}
+
+char					freeMap(char ***map, int w, int h)
+{
+	int		i;
+
+	i = -1;
+	while (++i < h)
+	{
+		free(map[0][i]);
+		map[0][i] = NULL;
+	}
+	free(map[0]);
+	map[0] = NULL;
+}
+
+void					showMap(char **map, int w, int h)
+{
+	int		i;
+
+	i = -1;
+	while (++i < h)
+		std::cout << map[i] << std::endl;
+}
+
+static t_pos		*setTab(t_pos *tab, int x, int y)
+{
+	tab[0].setPos(x, y + 1);
+	tab[1].setPos(x, y - 1);
+	tab[2].setPos(x + 1, y);
+	tab[3].setPos(x - 1, y);
+	tab[4].setPos(x - 1, y + 1);
+	tab[5].setPos(x - 1, y - 1);
+	tab[6].setPos(x + 1, y - 1);
+	tab[7].setPos(x + 1, y + 1);
+	return (tab);
+}
+
+static void				printPath(std::list<t_pos> path)
+{
+	for (std::list<t_pos>::iterator it = path.begin(); it != path.end(); it++)
+ 		std::cout << TAB << it->x << ", " << it->y << std::endl;//_DEBUG_//
+}
+
+static void				printPaths(std::vector<std::list<t_pos>> paths)
+{
+	for (std::vector<std::list<t_pos>>::iterator it = paths.begin(); it != paths.end(); it++)
+	{
+		std::list<t_pos>	e;
+		e = *it;
+		std::cout << "PATH : " << std::endl;
+		printPath(e);
+	}
+}
+
+static void			findPath(Object *o, char **map, int w, int h, t_pos target, int x, int y)
+{
+	int					b_x;
+	int					b_y;
+	bool				start;
+	t_pos				tab[8];
+	std::vector<std::list<t_pos>>	paths;
+	bool				way;
+
+	setTab(tab, x, y);
+	start = true;
+	way = false;
+  	while (42)
+  	{
+		way = false;
+		if (start)
+		{
+			for (int i = 0; i < 8; i++)
+			{
+				b_x = tab[i].x;
+				b_y = tab[i].y;
+			 	if (!(b_x >= 0 && b_x < w && b_y >= 0 && b_y < h
+			 		&& (map[b_y][b_x] == M_EMPTY
+						|| map[b_y][b_x] == M_FLAG_A
+						|| map[b_y][b_x] == M_FLAG_L)))
+					continue ;
+				if (o->getType() == ANTILOPE
+					&& 	map[b_y][b_x] == M_LION)
+					continue ;
+				if (o->getType() == LION
+					&& 	map[b_y][b_x] == M_ANTILOPE)
+					continue ;
+				way = true;
+				std::list<t_pos>	p;
+				p.push_back(tab[i]);
+				paths.push_back(p);
+ 				map[b_y][b_x] = M_JAM;
+				if (target.x == tab[i].x && target.y == tab[i].y)
+				{
+					o->setNextPos(p.begin()->x, p.begin()->y);
+					return ;
+				}
+			}
+			start = false;
+		}
+		else
+		{
+			int		size = paths.size();
+			for (int i = 0; i < size; i++)
+			{
+				setTab(tab, paths[i].back().x, paths[i].back().y);
+				for (int j = 0; j < 8; j++)
+				{
+					b_x = tab[j].x;
+					b_y = tab[j].y;
+			 		if (!(b_x >= 0 && b_x < w && b_y >= 0 && b_y < h
+			 			&& (map[b_y][b_x] == M_EMPTY
+							|| map[b_y][b_x] == M_FLAG_A
+							|| map[b_y][b_x] == M_FLAG_L)))
+					continue ;
+					if (o->getType() == ANTILOPE
+					&& 	map[b_y][b_x] == M_LION)
+						continue ;
+					if (o->getType() == LION
+					&& 	map[b_y][b_x] == M_ANTILOPE)
+						continue ;
+					way = true;
+					std::list<t_pos>	p;
+					p = paths[i];
+ 					map[b_y][b_x] = M_JAM;
+					p.push_back(tab[j]);
+ 					paths.push_back(p);
+					if (target.x == tab[j].x && target.y == tab[j].y)
+					{
+						o->setNextPos(p.begin()->x, p.begin()->y);
+						return ;
+					}
+				}
+// 				CLEAR();
+// 				showMap(map, w, h);
+// 				RenderManager::getInstance()->render();
+// 				usleep(5);//_DEBUG_//
+			}
+ 			paths.erase (paths.begin(), paths.begin() + size);
+			if (!way)
+				return ;
+		}
+// 		std::cout << "BUGUUUUUUUUUUUUUUU" << std::endl;
+	}
+}
+
+
+
 void					AIManager::simulate(void)
 {
 	int				i;
@@ -71,33 +247,35 @@ void					AIManager::simulate(void)
 	int				h;
 	int				tries;
 
+	bool			found;
+	t_pos			target;
+
 	i = -1;
+	found = false;
 	o = Game::getInstance()->getObjects();
 	count = Object::getCount();
 	map = Game::getInstance()->getMap()->getTab();
 	w =  Game::getInstance()->getMap()->getWidth();
 	h =  Game::getInstance()->getMap()->getHeight();
-	std::cout << "c = " << count << std::endl;//_DEBUG_//
 	while (++i < count)
 	{
-		tries = 0;
-		std::cout << "i = " << i << std::endl;
-		do
+		x = o[i]->getPos().x;
+		y = o[i]->getPos().y;
+// 		char	**tmp = map;
+ 		char	**tmp = mapDup(map, w, h);
+//  		showMap(tmp, w, h);//_DEBUG_//
+		if (o[i]->getType() == LION)
 		{
-			sign_x = (rand() % 100 > 80) ? -1 : 1;
-			sign_y = (rand() % 100 > 80) ? -1 : 1;
-			if (tries == 20)
-			{
-				x = o[i]->nextPos.x = o[i]->getPos().x + sign_x * FPS / SECOND;
-				y = o[i]->nextPos.y = o[i]->getPos().y + sign_y * FPS / SECOND;
-				break ;
-			}
-			x = o[i]->nextPos.x = o[i]->getPos().x + sign_x * FPS / SECOND;
-			y = o[i]->nextPos.y = o[i]->getPos().y + sign_y * FPS / SECOND;
-			tries++;
+			target = Game::getInstance()->getAntilopes()->getFlag();
+			findPath(o[i], tmp, w, h, target, x, y);
 		}
-		while (!(x >= 0 && x < w && y >= 0 && y < h
-			&& map[y][x] == M_EMPTY));
+		else if (o[i]->getType() == ANTILOPE)
+		{
+			target = Game::getInstance()->getLions()->getFlag();
+			findPath(o[i], tmp, w, h, target, x, y);
+		}
+// 		break ;//_DEBUG_//
+ 		freeMap(&tmp, w, h);
 	}
-	std::cout << "AIManager simulate !" << std::endl;//_DEBUG_//
+// 	std::cout << "AIManager simulate !" << std::endl;//_DEBUG_//
 }

@@ -77,7 +77,7 @@ const char		*Team::getName(void) const
 	return (this->_name);
 }
 
-Object			*Team::getFlag(void) const
+const t_pos		&Team::getFlag(void) const
 {
 	return (this->_flag);
 }
@@ -92,6 +92,53 @@ Object			*Team::getMember(int i) const
 Object			**Team::getMembers(void) const
 {
 	return (this->_members);
+}
+
+void			Team::getFlagLocation(void)
+{
+	int			i;
+	int			j;
+	int			w;
+	int			h;
+	bool		found;
+	char		**map;
+
+	i = -1;
+	found = false;
+	map = Game::getInstance()->getMap()->getTab();
+	w =  Game::getInstance()->getMap()->getWidth();
+	h =  Game::getInstance()->getMap()->getHeight();
+	while (++i < h)
+	{
+		j = -1;
+		while (++j < w)
+		{
+			if (this->_type == LION)
+			{
+				if (map[i][j] == M_FLAG_L)
+				{
+					std::cout << "LION" << std::endl;
+					this->_flag.x = j;
+					this->_flag.y = i;
+					found = true;
+					break ;
+				}
+			}
+			if (this->_type == ANTILOPE)
+			{
+				if (map[i][j] == M_FLAG_A)
+				{
+					std::cout << "ANTILOPE" << std::endl;
+					this->_flag.x = j;
+					this->_flag.y = i;
+					found = true;
+					break ;
+				}
+			}
+		}
+	}
+	if (!found)
+		ERROR("MAP FLAG WRONG FORMAT");
 }
 
 /*

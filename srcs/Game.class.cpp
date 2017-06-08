@@ -122,7 +122,6 @@ static void		setObjectList(Object **objects)
 		objects[i++] = Game::getInstance()->getLions()->getMember(j++);
 		if (j >= Game::getInstance()->getLions()->getMemberCount())
 			break ;
-		std::cout << "Lions i = " << i << std::endl;
 	}
 	j = 0;
 	while (i < count)
@@ -130,7 +129,6 @@ static void		setObjectList(Object **objects)
 		objects[i++] = Game::getInstance()->getAntilopes()->getMember(j++);
 		if (j >= Game::getInstance()->getAntilopes()->getMemberCount())
 			break ;
-		std::cout << "Antilopes i = " << i << std::endl;
 	}
 }
 
@@ -147,7 +145,9 @@ void			Game::init(const char *levelPath)
  		ERROR("BAD ALLOC");
 
 	this->_lions->place();
-	this->_antilopes->place(); //En fonction de la pos des drapeaux
+	this->_lions->getFlagLocation();
+	this->_antilopes->place();
+	this->_antilopes->getFlagLocation();
 
 	setObjectList(this->_objects);
 	this->_renderManager = RenderManager::getInstance();
@@ -163,7 +163,7 @@ void			Game::run(void)
 		this->_aiManager->simulate();
 		this->_objectManager->update();
 		this->_gameManager->update();
-		this->_renderManager->render();
+ 		this->_renderManager->render();
 		//very basic FPS handler it could've been better
 		usleep(SECOND / FPS);
 	}

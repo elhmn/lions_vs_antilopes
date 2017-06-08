@@ -19,7 +19,7 @@ class	Team
 	e_objType			_type;
 	int					_points;
 	int					_memberCount;
-	Object				*_flag;// still don't know how to handle that
+	t_pos				_flag;// still don't know how to handle that
 	Object				**_members;
 
 	public :
@@ -47,13 +47,14 @@ class	Team
 	int					getPoints(void) const;
 	int					getMemberCount(void) const;
 	const char			*getName(void) const;
-	Object				*getFlag(void) const;
+	const t_pos			&getFlag(void) const;
 	Object				*getMember(int i) const;
 	Object				**getMembers(void) const;
 
 /*
 ** Actions
 */
+	void				getFlagLocation(void);
 	void				place(void);
 
 };

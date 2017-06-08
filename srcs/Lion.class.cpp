@@ -1,4 +1,5 @@
 #include "Lion.class.h"
+#include "types.h"
 #include <iostream>
 
 bool		Lion::_verbose = false;
@@ -13,6 +14,7 @@ Lion::Lion(void)
 	{
 		std::cout << "Lion constructor called" << std::endl;
 	}
+	this->_type = LION;
 	//set the variables
 }
 

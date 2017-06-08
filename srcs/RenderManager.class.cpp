@@ -93,6 +93,8 @@ void					RenderManager::render(void)
 				std::cout << M_RENDER_ANTILOPE;
 			else if (ret == M_LEAD)
 				std::cout << M_RENDER_LEAD;
+			else if (ret == M_JAM)
+				std::cout << M_RENDER_JAM;
 			else
 				std::cout << M_RENDER_EMPTY;
 		}

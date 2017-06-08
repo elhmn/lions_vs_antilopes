@@ -26,6 +26,7 @@ class		Object
 
 	e_objType			_type;
 	t_pos				_pos;
+	t_pos				_nextPos;
 	float				_speed;
 	bool				_hasFlag;
 
@@ -38,8 +39,6 @@ class		Object
 	void				setSpeed(float speed);
 
 	public :
-
-	t_pos				nextPos;
 	
 /*
 ** Constructors
@@ -68,10 +67,12 @@ class		Object
 	// Getters
 	const e_objType		getType(void) const;
 	const t_pos			&getPos(void) const;
+	const t_pos			&getNextPos(void) const;
 	const float			getSpeed(void) const;
 
 	// Setters
 	void				setPos(const int x, const int y);
+	void				setNextPos(const int x, const int y);
 /*
 ** Non member functions 
 */

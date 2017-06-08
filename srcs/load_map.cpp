@@ -49,7 +49,7 @@ void			load_map(const char *filePath, char ***map, int *w, int *h)
 				*w = atoi(buf.c_str());
 			if (std::getline(file, buf))
 				*h = atoi(buf.c_str());
-			if (w <= 0 || h <= 0)
+			if (*w <= 0 || *w < 20 || *h <= 0 || *h <= 20)
 				ERROR("Map wrong format");
 			while (std::getline(file, buf))
 				mapTmp += buf;

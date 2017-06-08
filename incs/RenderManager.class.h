@@ -15,12 +15,14 @@
 	#  define M_RENDER_LION			"○"
 	#  define M_RENDER_ANTILOPE		"●"
 	#  define M_RENDER_LEAD			"♚"
+	#  define M_RENDER_JAM			"⊕"
 # else
 	#  define M_RENDER_FLAG_L		"L"
 	#  define M_RENDER_FLAG_A		"A"
 	#  define M_RENDER_LION			"l"
 	#  define M_RENDER_ANTILOPE		"a"
 	#  define M_RENDER_LEAD			"e"
+	#  define M_RENDER_JAM			"*"
 # endif
 
 class		RenderManager

@@ -7,6 +7,12 @@ typedef struct		s_pos
 {
 	int			x;
 	int			y;
+
+	void		setPos(int x, int y)
+	{
+		this->x = x;
+		this->y = y;
+	};
 }					t_pos;
 
 enum				e_objType

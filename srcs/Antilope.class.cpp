@@ -16,19 +16,18 @@ Antilope::Antilope(void)
 	srand(time(NULL));
 	if (!Antilope::_nLeader)
 		Antilope::_nLeader = (rand() % ANTILOPES_MAX_LEADER + 1) + 1;
-	std::cout << "_nLeader = " << _nLeader << std::endl;//_DEBUG_//
 	if (Antilope::_verbose)
 	{
 		std::cout << "Antilope constructor called" << std::endl;
 	}
 	this->_leaderID = -1;
 	this->_isLeader = false;
+	this->_type = ANTILOPE;
 	if (Antilope::_leaderCount < _nLeader)
 	{
 		this->_isLeader = true;
 		++Antilope::_leaderCount;
 	}
-	//set the variables
 }
 
 /*

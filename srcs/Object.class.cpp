@@ -60,6 +60,12 @@ void			Object::setPos(const int x, const int y)
 	this->_pos.y = y;
 }
 
+void			Object::setNextPos(const int x, const int y)
+{
+	this->_nextPos.x = x;
+	this->_nextPos.y = y;
+}
+
 /*
 ** Getters
 */
@@ -67,6 +73,11 @@ void			Object::setPos(const int x, const int y)
 const t_pos		&Object::getPos(void) const
 {
 	return (this->_pos);
+}
+
+const t_pos		&Object::getNextPos(void) const
+{
+	return (this->_nextPos);
 }
 
 const e_objType	Object::getType(void) const

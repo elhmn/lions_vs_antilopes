@@ -66,7 +66,7 @@ void					ObjectManager::spawn(void)
 	std::cout << "ObjectManager spwan !" << std::endl;//_DEBUG_//
 }
 
-void					ObjectManager::update(void)
+static void				move(void)
 {
 	int				i;
 	int				count;
@@ -86,8 +86,8 @@ void					ObjectManager::update(void)
 	count = Object::getCount();
 	while (++i < count)
 	{
-		x = o[i]->nextPos.x;
-		y = o[i]->nextPos.y;
+		x = o[i]->getNextPos().x;
+		y = o[i]->getNextPos().y;
 		if (x >= 0 && x < w && y >= 0 && y < h
 			&& map[y][x] == M_EMPTY)
 		{
@@ -97,5 +97,10 @@ void					ObjectManager::update(void)
 			o[i]->setPos(x, y);
 		}
 	}
+}
+
+void					ObjectManager::update(void)
+{
+	move();
 	std::cout << "ObjectManager update !" << std::endl;//_DEBUG_//
 }
