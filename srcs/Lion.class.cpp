@@ -14,7 +14,7 @@ Lion::Lion(void)
 	{
 		std::cout << "Lion constructor called" << std::endl;
 	}
-	this->_type = LION;
+	this->init();
 	//set the variables
 }
 
@@ -31,7 +31,9 @@ Lion::~Lion(void)
 	//clean variables
 }
 
-void		Lion::update(void)
+void		Lion::init(void)
 {
-	std::cout << "Lion update !" << std::endl;//_DEBUG_//
+	Object::init();
+	this->_speed = 1;
+	this->_type = LION;
 }

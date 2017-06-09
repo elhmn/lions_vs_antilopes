@@ -10,10 +10,10 @@
 # include "Map.class.h"
 # include "load_map.h"
 
-# define FPS			30	
-# define SECOND			1000000.
-# define ANTILOPES_COUNT	20
-# define LIONS_COUNT		3	
+# define FPS				30	
+# define SECOND				1000000.
+# define ANTILOPES_COUNT	30
+# define LIONS_COUNT		8
 
 class		Game
 {
@@ -52,6 +52,10 @@ class		Game
 	public :
 
 /*
+** Member variables
+*/
+	bool		reset;
+/*
 ** Destructor
 */
 
@@ -76,6 +80,8 @@ class		Game
 
 	// Actions
 	void				init(const char *levelPath = LEVEL_PATH);
+	void				load(void);
+	void				reload(void);
 	void				run(void);
 	void				clean(void);
 

@@ -15,6 +15,8 @@
 	#  define M_RENDER_FLAG_A		"◆"
 	#  define M_RENDER_LION			"○"
 	#  define M_RENDER_ANTILOPE		"●"
+	#  define M_RENDER_L_GETFLAG	"☺"
+	#  define M_RENDER_A_GETFLAG	"☻"
 	#  define M_RENDER_LEAD			"♚"
 	#  define M_RENDER_JAM			"⊕"
 # else
@@ -24,6 +26,8 @@
 	#  define M_RENDER_ANTILOPE		"a"
 	#  define M_RENDER_LEAD			"e"
 	#  define M_RENDER_JAM			"*"
+	#  define M_RENDER_L_GETFLAG	"<"
+	#  define M_RENDER_A_GETFLAG	">"
 # endif
 
 class		RenderManager

@@ -10,7 +10,8 @@
 #include "Map.class.h"
 #include "Object.class.h"
 #include "Antilope.class.h"
-#include "error.h"
+ #include "error.h"
+#include "load_map.h"
 
 /*
 ** Non member variables
@@ -67,49 +68,6 @@ AIManager			*AIManager::getInstance(void)
 ** Basic recursive Pathfinding algorithm
 */
 
-char					**mapDup(char **map, int w, int h)
-{
-	char	**tmp;
-	int		i;
-
-	i = -1;
-	tmp = NULL;
-	if (!(tmp = (char**)malloc(sizeof(char*) * h + 1)))
-		ERROR("BAD ALLOC");
-	tmp[h] = NULL;
-	while (++i < h)
-	{
-		if (!(tmp[i] = (char*)malloc(sizeof(char) * w + 1)))
-			ERROR("BAD ALLOC");
- 		tmp[i][w] = '\0';
-		memcpy(tmp[i], map[i], w);
-	}
-	return (tmp);
-}
-
-void					freeMap(char ***map, int w, int h)
-{
-	int		i;
-
-	i = -1;
-	while (++i < h)
-	{
-		free(map[0][i]);
-		map[0][i] = NULL;
-	}
-	free(map[0]);
-	map[0] = NULL;
-}
-
-void					showMap(char **map, int w, int h)
-{
-	int		i;
-
-	i = -1;
-	while (++i < h)
-		std::cout << map[i] << std::endl;
-}
-
 static t_pos			*setTab(t_pos *tab, int x, int y)
 {
 	tab[0].setPos(x, y + 1);
@@ -131,7 +89,8 @@ static void				printPath(std::list<t_pos> path)
 
 static void				printPaths(std::vector< std::list<t_pos> > paths)
 {
-	for (std::vector< std::list<t_pos> >::iterator it = paths.begin(); it != paths.end(); it++)
+	for (std::vector< std::list<t_pos> >::iterator it = paths.begin();
+			it != paths.end(); it++)
 	{
 		std::list<t_pos>	e;
 		e = *it;
@@ -161,23 +120,20 @@ static void			findPath(Object *o, char **map, int w, int h, int x, int y)
 			{
 				b_x = tab[i].x;
 				b_y = tab[i].y;
-			 	if (!(b_x >= 0 && b_x < w && b_y >= 0 && b_y < h
-			 		&& (map[b_y][b_x] == M_EMPTY
-						|| map[b_y][b_x] == M_FLAG_A
-						|| map[b_y][b_x] == M_FLAG_L)))
-					continue ;
-				if (o->getType() == ANTILOPE
-					&& 	map[b_y][b_x] == M_LION)
-					continue ;
-				if (o->getType() == LION
-					&& 	map[b_y][b_x] == M_ANTILOPE)
+				if (!(b_x >= 0 && b_x < w && b_y >= 0 && b_y < h
+			 			&& (map[b_y][b_x] == M_EMPTY
+							|| map[b_y][b_x] == M_FLAG_A
+							|| map[b_y][b_x] == M_FLAG_L
+							|| (o->getTarget().x == b_x
+								&& o->getTarget().y == b_y))))
 					continue ;
 				way = true;
 				std::list<t_pos>	p;
 				p.push_back(tab[i]);
 				paths.push_back(p);
  				map[b_y][b_x] = M_JAM;
-				if (o->getTarget().x == tab[i].x && o->getTarget().y == tab[i].y)
+				if (o->getTarget().x == tab[i].x
+					&& o->getTarget().y == tab[i].y)
 				{
 					o->setNextPos(p.begin()->x, p.begin()->y);
 					return ;
@@ -198,21 +154,18 @@ static void			findPath(Object *o, char **map, int w, int h, int x, int y)
 			 		if (!(b_x >= 0 && b_x < w && b_y >= 0 && b_y < h
 			 			&& (map[b_y][b_x] == M_EMPTY
 							|| map[b_y][b_x] == M_FLAG_A
-							|| map[b_y][b_x] == M_FLAG_L)))
+							|| map[b_y][b_x] == M_FLAG_L
+							|| (o->getTarget().x == b_x
+								&& o->getTarget().y == b_y))))
 					continue ;
-					if (o->getType() == ANTILOPE
-					&& 	map[b_y][b_x] == M_LION)
-						continue ;
-					if (o->getType() == LION
-					&& 	map[b_y][b_x] == M_ANTILOPE)
-						continue ;
 					way = true;
 					std::list<t_pos>	p;
 					p = paths[i];
  					map[b_y][b_x] = M_JAM;
 					p.push_back(tab[j]);
  					paths.push_back(p);
-					if (o->getTarget().x == tab[j].x && o->getTarget().y == tab[j].y)
+					if (o->getTarget().x == tab[j].x
+						&& o->getTarget().y == tab[j].y)
 					{
 						o->setNextPos(p.begin()->x, p.begin()->y);
 						return ;
@@ -230,6 +183,30 @@ static void			findPath(Object *o, char **map, int w, int h, int x, int y)
 static float			distance(t_pos a, t_pos b)
 {
 	return (sqrt(pow(a.x - b.x, 2) + pow(a.y - b.y, 2)));
+}
+
+void					AIManager::init(void)
+{
+	int				count;
+	Object			**o;
+	int				i;
+
+	i = -1;
+	o = Game::getInstance()->getObjects();
+	count = Object::getCount();
+	while (++i < count)
+	{
+		if (!o[i]->isAlive)
+			continue ;
+		if (o[i]->getType() == LION)
+		{
+			o[i]->setTarget(Game::getInstance()->getAntilopes()->originFlag);
+		}
+		else if (o[i]->getType() == ANTILOPE)
+		{
+			o[i]->setTarget(Game::getInstance()->getLions()->originFlag);
+		}
+	}
 }
 
 void					AIManager::simulate(void)
@@ -256,18 +233,7 @@ void					AIManager::simulate(void)
 		x = o[i]->getPos().x;
 		y = o[i]->getPos().y;
  		char	**mapTmp = mapDup(map, w, h);
-		if (o[i]->getType() == LION)
-		{
-			o[i]->setTarget(Game::getInstance()->getAntilopes()->getFlag());
-		}
-		else if (o[i]->getType() == ANTILOPE)
-		{
-			
-			o[i]->setTarget(Game::getInstance()->getLions()->getFlag());
-		}
-		if (o[i]->getTarget().x != -1
-				&& o[i]->getTarget().y != -1)
-				findPath(o[i], mapTmp, w, h, x, y);
+		findPath(o[i], mapTmp, w, h, x, y);
  		freeMap(&mapTmp, w, h);
 	}
 }

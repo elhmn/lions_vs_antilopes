@@ -119,6 +119,16 @@ static void				fightController(void)
 			{
 				map[y][x] = M_EMPTY;
 				o[i]->isAlive = false;
+				if (o[i]->hasFlag)
+				{
+					t_pos p;
+
+					p = Game::getInstance()->getLions()->originFlag;
+					map[p.y][p.x] = M_FLAG_L;
+					o[i]->hasFlag = false;
+					Game::getInstance()->getAntilopes()->hasFlag = false;
+					Game::getInstance()->getLions()->ownFlag = true;
+				}
 			}
 		}
 		else if (o[i]->getType() == LION)
@@ -127,6 +137,16 @@ static void				fightController(void)
 			{
 				map[y][x] = M_EMPTY;
 				o[i]->isAlive = false;
+				if (o[i]->hasFlag)
+				{
+					t_pos p;
+
+					p = Game::getInstance()->getAntilopes()->originFlag;
+					map[p.y][p.x] = M_FLAG_A;
+					o[i]->hasFlag = false;
+					Game::getInstance()->getLions()->hasFlag = false;
+					Game::getInstance()->getAntilopes()->ownFlag = true;
+				}
 			}
 		}
 	}

@@ -20,11 +20,7 @@ Object::Object(void)
 	}
 	this->_type = NONE;
 	//begin : send this section to the children
-	this->setPos(0, 0);
-	this->setTarget(-1, -1);
-	this->_speed = 0;
-	this->isHunting = false;
-	this->isAlive = true;
+	this->init();
 	//end
 	Object::_count++;
 }
@@ -118,7 +114,13 @@ const int		Object::getCount(void)
 ** Actions
 */
 
-void			Object::update(void)
+void			Object::init(void)
 {
-	std::cout << "Object update !" << std::endl;//_DEBUG_//
+	this->setPos(0, 0);
+	this->setTarget(-1, -1);
+	this->_speed = 0;
+	this->isHunting = false;
+	this->isAlive = true;
+	this->hasFlag = false;
+	this->speedCount = 0;
 }

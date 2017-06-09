@@ -29,7 +29,6 @@ class		Object
 	t_pos				_nextPos;
 	t_pos				_target;
 	float				_speed;
-	bool				_hasFlag;
 
 /*
 ** Member functions 
@@ -43,7 +42,9 @@ class		Object
 	
 	bool				isHunting;
 	bool				isAlive;
+	bool				hasFlag;
 	t_pos				origin;
+	float				speedCount;
 
 /*
 ** Constructors
@@ -66,8 +67,7 @@ class		Object
 */
 
 	// Actions
- 	virtual void		update(void);
-
+	virtual void		init(void);
 
 	// Getters
 	const e_objType		getType(void) const;

@@ -4,7 +4,6 @@
 # include "Object.class.h"
 # include "Lion.class.h"
 # include "Antilope.class.h"
-# include "Flag.class.h" // if i use it
 # include "types.h"
 
 class	Factory

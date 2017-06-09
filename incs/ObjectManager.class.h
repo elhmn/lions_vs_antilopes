@@ -3,7 +3,7 @@
 
 # include <ctime>
 
-# define WAIT_CLOCK			1000.
+# define WAIT_CLOCK			50.
 
 class		ObjectManager
 {

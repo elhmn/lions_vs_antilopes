@@ -1,5 +1,7 @@
 #include <iostream>
 #include "Game.class.h"
+#include "Lion.class.h"
+#include "Antilope.class.h"
 #include "error.h"
 #include <unistd.h>
 #include <cstdlib>
@@ -29,6 +31,7 @@ Game::Game(void)
 	this->_renderManager = NULL;
 	this->_gameManager = NULL;
 	this->_objectManager = NULL;
+	this->reset = false;
 }
 
 /*
@@ -142,23 +145,47 @@ void			Game::init(const char *levelPath)
  	if (!(this->_objects
 			= (Object**)malloc(sizeof(Object*) * Object::getCount())))
  		ERROR("BAD ALLOC");
+	this->load();
+}
 
+void			Game::reload(void)
+{
+	Antilope::resetLeaderCount();
+	this->_map->reset();
+	this->_lions->init();
+	this->_antilopes->init();
+	for (int i = 0; i < Object::getCount(); i++)
+		this->_objects[i]->init();
 	this->_lions->place();
 	this->_lions->getFlagLocation();
 	this->_antilopes->place();
 	this->_antilopes->getFlagLocation();
+	this->_aiManager->init();
+}
 
+void			Game::load(void)
+{
+	this->_lions->place();
+	this->_lions->getFlagLocation();
+	this->_antilopes->place();
+	this->_antilopes->getFlagLocation();
 	setObjectList(this->_objects);
 	this->_renderManager = RenderManager::getInstance();
 	this->_aiManager = AIManager::getInstance();
 	this->_gameManager = GameManager::getInstance();
 	this->_objectManager = ObjectManager::getInstance();
+	this->_aiManager->init();
 }
 
 void			Game::run(void)
 {
 	while (42)
 	{
+		if (this->reset)
+		{
+			this->reset = false;
+			Game::reload();
+		}
 		this->_aiManager->simulate();
 		this->_objectManager->update();
 		this->_gameManager->update();

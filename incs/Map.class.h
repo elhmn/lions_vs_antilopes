@@ -17,6 +17,7 @@ class	Map
 ** Member variables
 */
 	char				**_tab;
+	char				**_tabTmp;
 	int					_width;
 	int					_height;
 
@@ -45,6 +46,9 @@ class	Map
 	char				**getTab(void) const;
 	int					getWidth(void) const;
 	int					getHeight(void) const;
+
+	//Actions
+	void				reset(void);
 };
 
 std::ostream& operator<<(std::ostream& os, const Map& rhs);

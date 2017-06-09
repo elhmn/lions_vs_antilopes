@@ -35,12 +35,13 @@ Team::Team(const char *name, e_objType type, int memberCount) : _name(name), _ty
 	{
 		std::cout << "Team constructor called !" << std::endl;
 	}
-	this->_points = 0;
+	this->points = 0;
 	if (!(this->_members = (Object**)malloc(sizeof(Object*) * this->_memberCount)))
 		ERROR("BAD ALLOC");
 	while (++i < this->_memberCount)
 		if (!(this->_members[i] = Factory::getInstance()->create(type)))
 			ERROR("BAD ALLOC");
+	this->init();
 }
 
 /*
@@ -59,13 +60,15 @@ Team::~Team(void)
 ** Setters
 */
 
+void				Team::setFlag(t_pos pos)
+{
+	this->_flag.x = pos.x;
+	this->_flag.y = pos.y;
+}
+
 /*
 ** Getters
 */
-int				Team::getPoints(void) const
-{
-	return (this->_points);
-}
 
 int				Team::getMemberCount(void) const
 {
@@ -106,8 +109,11 @@ void			Team::getFlagLocation(void)
 	i = -1;
 	found = false;
 	map = Game::getInstance()->getMap()->getTab();
+	std::cout << __LINE__ << std::endl;
 	w =  Game::getInstance()->getMap()->getWidth();
+	std::cout << __LINE__ << std::endl;
 	h =  Game::getInstance()->getMap()->getHeight();
+	std::cout << __LINE__ << std::endl;
 	while (++i < h)
 	{
 		j = -1;
@@ -120,6 +126,8 @@ void			Team::getFlagLocation(void)
 					std::cout << "LION" << std::endl;
 					this->_flag.x = j;
 					this->_flag.y = i;
+					this->originFlag.x = j;
+					this->originFlag.y = i;
 					found = true;
 					break ;
 				}
@@ -131,12 +139,15 @@ void			Team::getFlagLocation(void)
 					std::cout << "ANTILOPE" << std::endl;
 					this->_flag.x = j;
 					this->_flag.y = i;
+					this->originFlag.x = j;
+					this->originFlag.y = i;
 					found = true;
 					break ;
 				}
 			}
 		}
 	}
+	std::cout << __LINE__ << std::endl;
 	if (!found)
 		ERROR("MAP FLAG WRONG FORMAT");
 }
@@ -144,6 +155,12 @@ void			Team::getFlagLocation(void)
 /*
 ** Actions
 */
+void			Team::init(void)
+{
+	hasFlag = false;
+	ownFlag = true;
+}
+
 void			Team::place(void)
 {
 	Antilope	*a;

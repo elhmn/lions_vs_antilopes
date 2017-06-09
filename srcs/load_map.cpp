@@ -6,6 +6,49 @@
 #include "error.h"
 #include "load_map.h"
 
+char					**mapDup(char **map, int w, int h)
+{
+	char	**tmp;
+	int		i;
+
+	i = -1;
+	tmp = NULL;
+	if (!(tmp = (char**)malloc(sizeof(char*) * h + 1)))
+		ERROR("BAD ALLOC");
+	tmp[h] = NULL;
+	while (++i < h)
+	{
+		if (!(tmp[i] = (char*)malloc(sizeof(char) * w + 1)))
+			ERROR("BAD ALLOC");
+ 		tmp[i][w] = '\0';
+		memcpy(tmp[i], map[i], w);
+	}
+	return (tmp);
+}
+
+void					freeMap(char ***map, int w, int h)
+{
+	int		i;
+
+	i = -1;
+	while (++i < h)
+	{
+		free(map[0][i]);
+		map[0][i] = NULL;
+	}
+	free(map[0]);
+	map[0] = NULL;
+}
+
+void					showMap(char **map, int w, int h)
+{
+	int		i;
+
+	i = -1;
+	while (++i < h)
+		std::cout << map[i] << std::endl;
+}
+
 static char	**get_map(std::string s_map, int w, int h)
 {
 	char		**map;

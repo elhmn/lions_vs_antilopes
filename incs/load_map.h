@@ -9,10 +9,15 @@
 # define M_EMPTY			' '
 # define M_LEAD				'x'
 # define M_JAM				'J'
+# define M_L_GETFLAG		'<'
+# define M_A_GETFLAG		'>'
 
 
 # define LEVEL_PATH     	"./levels/main.lvl"
 
 void						load_map(const char *filePath, char ***map, int *w, int *h);
+char						**mapDup(char **map, int w, int h);
+void						freeMap(char ***map, int w, int h);
+void						showMap(char **map, int w, int h);
 
 #endif

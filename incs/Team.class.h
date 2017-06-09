@@ -17,12 +17,15 @@ class	Team
 */
 	const char			*_name;
 	e_objType			_type;
-	int					_points;
 	int					_memberCount;
-	t_pos				_flag;// still don't know how to handle that
+	t_pos				_flag;
 	Object				**_members;
 
 	public :
+	t_pos				originFlag;
+	bool				hasFlag;
+	bool				ownFlag;
+	int					points;
 /*
 ** Constructors
 */
@@ -44,18 +47,20 @@ class	Team
 ** Member functions
 */
 	//Getters
-	int					getPoints(void) const;
 	int					getMemberCount(void) const;
 	const char			*getName(void) const;
 	const t_pos			&getFlag(void) const;
 	Object				*getMember(int i) const;
 	Object				**getMembers(void) const;
 
+	//Setters
+	void				setFlag(t_pos pos);
 /*
 ** Actions
 */
 	void				getFlagLocation(void);
 	void				place(void);
+	void				init(void);
 
 };
 

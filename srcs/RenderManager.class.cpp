@@ -1,4 +1,6 @@
 #include <iostream>
+#include <sstream>
+#include <stdlib.h>
 #include <iomanip>
 #include "RenderManager.class.h"
 #include "Game.class.h"
@@ -96,11 +98,21 @@ void					RenderManager::render(void)
 				std::cout << M_RENDER_LEAD;
 			else if (ret == M_JAM)
 				std::cout << M_RENDER_JAM;
+			else if (ret == M_L_GETFLAG)
+				std::cout << M_RENDER_L_GETFLAG;
+			else if (ret == M_A_GETFLAG)
+				std::cout << M_RENDER_A_GETFLAG;
 			else
 				std::cout << M_RENDER_EMPTY;
 		}
 		std::cout << std::endl;
 	}
-	std::string s = "LIONS 0 VS 0 ANTILOPES";
+	std::stringstream	p1;
+	std::stringstream	p2;
+
+	p1 << Game::getInstance()->getLions()->points;
+	p2 << Game::getInstance()->getAntilopes()->points;
+
+	std::string s = "LIONS " + p1.str() + " VS " + p2.str() + " ANTILOPES";
 	std::cout  << std::setw(w / 2 + s.length() / 2)  << std::right << s << std::endl;
 }

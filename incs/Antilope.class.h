@@ -52,12 +52,13 @@ class	Antilope : public Object
 ** Setters
 */
 	void						setLeaderID(int id);
+	static void					resetLeaderCount(void);
 	
 /*
 ** Member functions 
 */
 	// Actions
-	virtual void				update(void);
+	virtual void				init(void);
 };
 
 #endif

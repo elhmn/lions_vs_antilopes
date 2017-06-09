@@ -35,7 +35,7 @@ class	Lion : public Object
 ** Member functions 
 */
 	// Actions
-	virtual void		update(void);
+	void	virtual			init(void);
 };
 
 #endif

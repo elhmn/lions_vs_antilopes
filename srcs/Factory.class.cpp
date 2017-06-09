@@ -67,11 +67,5 @@ Object			*Factory::create(e_objType type)
 		if (!(o = new Antilope()))
 			ERROR("BAD ALLOC");
 	}
-	//if i use finally use Flag
-	else if (type == FLAG)
-	{
-		if (!(o = new Flag()))
-			ERROR("BAD ALLOC");
-	}
 	return (o);
 }

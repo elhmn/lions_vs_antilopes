@@ -48,6 +48,7 @@ class		AIManager
 */
 
 	// Actions
+	void						init(void);
 	void						simulate(void);
 };
 
