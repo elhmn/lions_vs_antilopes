@@ -32,4 +32,4 @@ How to use :
 
 
 
-![](./img/lionsvsantilopes)
+![](./img/lionsvsantilopes.gif)
