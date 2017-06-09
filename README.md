@@ -1,3 +1,5 @@
+# Basic Capture the flag simulation #
+
 How to use :
 
 	1- Compile :
@@ -28,4 +30,6 @@ How to use :
 		example:
 		$> game ./level/main.lvl
 
-THANKS A LOT I had fun while implementing it ! :)
+
+
+![](./img/lionsvsantilopes)
