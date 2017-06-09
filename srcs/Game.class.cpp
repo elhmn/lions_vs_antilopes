@@ -3,7 +3,6 @@
 #include "error.h"
 #include <unistd.h>
 #include <cstdlib>
-#include <time.h>
 
 /*
 ** Non member variables

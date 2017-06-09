@@ -210,6 +210,8 @@ void			Team::place(void)
 		}
 		while (r_x >= w || r_x < 0 || r_y >= h || r_y < 0 || map[r_y][r_x] != M_EMPTY);
 		this->getMember(i)->setPos(r_x, r_y);
+		this->getMember(i)->origin.x = r_x;
+		this->getMember(i)->origin.y = r_y;
 		map[r_y][r_x] = car; 
 	}
 }

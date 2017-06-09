@@ -24,6 +24,7 @@ ObjectManager::ObjectManager(void)
 	{
 		std::cout << "ObjectManager constructor called !" << std::endl;
 	}
+	c_start = std::clock();
 }
 
 /*
@@ -87,6 +88,8 @@ static void				move(void)
 	count = Object::getCount();
 	while (++i < count)
 	{
+		if (!o[i]->isAlive)
+			continue ;
 		x = o[i]->getNextPos().x;
 		y = o[i]->getNextPos().y;
 		if (x >= 0 && x < w && y >= 0 && y < h
@@ -118,8 +121,43 @@ static void				updateAntilopeFollowers()
 	}
 }
 
+static void				respawn(void)
+{
+	Object			**o;
+	char			**map;
+	int				count;
+	int				i;
+
+	if (1000.0 * (std::clock() - Game::getInstance()->getObjectManager()->c_start) / CLOCKS_PER_SEC < WAIT_CLOCK)
+		return ;
+	Game::getInstance()->getObjectManager()->c_start = std::clock();
+	i = -1;
+	o = Game::getInstance()->getObjects();
+	count = Game::getInstance()->getAntilopes()->getMemberCount();
+	map = Game::getInstance()->getMap()->getTab();
+	while (++i < count)
+	{
+		if (!o[i]->isAlive
+			&& map[o[i]->origin.y][o[i]->origin.x] == M_EMPTY)
+		{
+			o[i]->isAlive = true;
+			if (o[i]->getType() == ANTILOPE)
+			{
+				if (dynamic_cast<Antilope*>(o[i])->getIsLeader())
+					map[o[i]->origin.y][o[i]->origin.x] = M_LEAD;
+				else
+					map[o[i]->origin.y][o[i]->origin.x] = M_ANTILOPE;
+
+			}
+			if (o[i]->getType() == LION)
+				map[o[i]->origin.y][o[i]->origin.x] = M_LION;
+		}
+	}
+}
+
 void					ObjectManager::update(void)
 {
 	move();
 	updateAntilopeFollowers();
+	respawn();
 }

@@ -10,10 +10,10 @@
 # include "Map.class.h"
 # include "load_map.h"
 
-# define FPS				30
+# define FPS			30	
 # define SECOND			1000000.
 # define ANTILOPES_COUNT	20
-# define LIONS_COUNT		5
+# define LIONS_COUNT		3	
 
 class		Game
 {

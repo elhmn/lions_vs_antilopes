@@ -4,7 +4,7 @@
 # include "Object.class.h"
 
 # define ANTILOPES_MAX_LEADER	10
-# define LEADER_RADIUS			3
+# define LEADER_RADIUS			2	
 
 class	Antilope : public Object
 {

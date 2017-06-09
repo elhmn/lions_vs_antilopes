@@ -110,7 +110,7 @@ void					showMap(char **map, int w, int h)
 		std::cout << map[i] << std::endl;
 }
 
-static t_pos		*setTab(t_pos *tab, int x, int y)
+static t_pos			*setTab(t_pos *tab, int x, int y)
 {
 	tab[0].setPos(x, y + 1);
 	tab[1].setPos(x, y - 1);
@@ -251,6 +251,8 @@ void					AIManager::simulate(void)
 	h =  Game::getInstance()->getMap()->getHeight();
 	while (++i < count)
 	{
+		if (!o[i]->isAlive)
+			continue ;
 		x = o[i]->getPos().x;
 		y = o[i]->getPos().y;
  		char	**mapTmp = mapDup(map, w, h);

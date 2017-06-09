@@ -1,6 +1,10 @@
 #ifndef OBJECTMANAGER_CLASS_H
 # define OBJECTMANAGER_CLASS_H
 
+# include <ctime>
+
+# define WAIT_CLOCK			1000.
+
 class		ObjectManager
 {
 	private :
@@ -23,7 +27,7 @@ class		ObjectManager
 	ObjectManager(const ObjectManager &rhs);
 
 	public :
-
+	clock_t						c_start;
 /*
 ** Destructor
 */

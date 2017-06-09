@@ -42,6 +42,8 @@ class		Object
 	public :
 	
 	bool				isHunting;
+	bool				isAlive;
+	t_pos				origin;
 
 /*
 ** Constructors

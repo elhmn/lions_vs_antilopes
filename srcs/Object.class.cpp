@@ -24,6 +24,7 @@ Object::Object(void)
 	this->setTarget(-1, -1);
 	this->_speed = 0;
 	this->isHunting = false;
+	this->isAlive = true;
 	//end
 	Object::_count++;
 }
