@@ -113,6 +113,8 @@ void					RenderManager::render(void)
 	p1 << Game::getInstance()->getLions()->points;
 	p2 << Game::getInstance()->getAntilopes()->points;
 
-	std::string s = "LIONS " + p1.str() + " VS " + p2.str() + " ANTILOPES";
+	std::string s = std::string(M_RENDER_LION) + " LIONS " + p1.str()
+					+ " VS " + p2.str()
+					+ " ANTILOPES " + std::string(M_RENDER_ANTILOPE);
 	std::cout  << std::setw(w / 2 + s.length() / 2)  << std::right << s << std::endl;
 }
