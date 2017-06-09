@@ -273,19 +273,18 @@ void					updateObjectTarget(void)
 			{
 				if (Game::getInstance()->getLions()->hasFlag)
 				{
-					o[i]->setTarget(Game::getInstance()->getLions()->originFlag);
-				}
-				else
-				{
-
 					if (o[i]->hasFlag)
-						o[i]->setTarget(Game::getInstance()->getAntilopes()->originFlag);
+						o[i]->setTarget(Game::getInstance()->getLions()->originFlag);
 					else
 					{
 						ret = rand() % Game::getInstance()->getAntilopes()->getMemberCount();
 						if (Game::getInstance()->getAntilopes()->getMember(ret)->isAlive)
 							o[i]->setTarget(Game::getInstance()->getAntilopes()->getMember(ret)->getPos());
 					}
+				}
+				else
+				{
+					o[i]->setTarget(Game::getInstance()->getAntilopes()->originFlag);
 				}
 			}
 		}
