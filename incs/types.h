@@ -24,4 +24,10 @@ enum				e_objType
 	NONE,
 };
 
+enum				e_aiState
+{
+	AI_HUNTING = 1,
+	AI_GETFLAG
+};
+
 #endif

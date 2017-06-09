@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include <iostream>
 
 void					error(const char *msg,

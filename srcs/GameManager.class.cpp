@@ -54,5 +54,6 @@ GameManager			*GameManager::getInstance(void)
 
 void					GameManager::update(void)
 {
+
 	std::cout << "GameManager update !" << std::endl;//_DEBUG_//
 }

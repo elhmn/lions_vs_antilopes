@@ -22,6 +22,7 @@ Antilope::Antilope(void)
 	}
 	this->_leaderID = -1;
 	this->_isLeader = false;
+	this->setTarget(-1, -1);
 	this->_type = ANTILOPE;
 	if (Antilope::_leaderCount < _nLeader)
 	{

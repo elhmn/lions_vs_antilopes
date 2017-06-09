@@ -21,7 +21,9 @@ Object::Object(void)
 	this->_type = NONE;
 	//begin : send this section to the children
 	this->setPos(0, 0);
+	this->setTarget(-1, -1);
 	this->_speed = 0;
+	this->isHunting = false;
 	//end
 	Object::_count++;
 }
@@ -60,6 +62,18 @@ void			Object::setPos(const int x, const int y)
 	this->_pos.y = y;
 }
 
+void			Object::setTarget(const int x, const int y)
+{
+	this->_target.x = x;
+	this->_target.y = y;
+}
+
+void			Object::setTarget(const t_pos target)
+{
+	this->_target.x = target.x;
+	this->_target.y = target.y;
+}
+
 void			Object::setNextPos(const int x, const int y)
 {
 	this->_nextPos.x = x;
@@ -69,6 +83,10 @@ void			Object::setNextPos(const int x, const int y)
 /*
 ** Getters
 */
+const t_pos		&Object::getTarget(void) const
+{
+	return (this->_target);
+}
 
 const t_pos		&Object::getPos(void) const
 {

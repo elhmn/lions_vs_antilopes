@@ -87,7 +87,7 @@ char					**mapDup(char **map, int w, int h)
 	return (tmp);
 }
 
-void					freeMap(char ***map, int w, int h)
+char					freeMap(char ***map, int w, int h)
 {
 	int		i;
 
@@ -129,9 +129,9 @@ static void				printPath(std::list<t_pos> path)
 		std::cout << TAB << it->x << ", " << it->y << std::endl;
 }
 
-static void				printPaths(std::vector< std::list<t_pos> > paths)
+static void				printPaths(std::vector<std::list<t_pos>> paths)
 {
-	for (std::vector< std::list<t_pos> >::iterator it = paths.begin(); it != paths.end(); it++)
+	for (std::vector<std::list<t_pos>>::iterator it = paths.begin(); it != paths.end(); it++)
 	{
 		std::list<t_pos>	e;
 		e = *it;
@@ -146,7 +146,7 @@ static void			findPath(Object *o, char **map, int w, int h, int x, int y)
 	int					b_y;
 	bool				start;
 	t_pos				tab[8];
-	std::vector< std::list<t_pos> >	paths;
+	std::vector<std::list<t_pos>>	paths;
 	bool				way;
 
 	setTab(tab, x, y);
@@ -235,6 +235,8 @@ static float			distance(t_pos a, t_pos b)
 void					AIManager::simulate(void)
 {
 	int				i;
+	int				sign_y;
+	int				sign_x;
 	int				count;
 	Object			**o;
 	char			**map;
@@ -242,8 +244,15 @@ void					AIManager::simulate(void)
 	int				y;
 	int				w;
 	int				h;
+	int				tries;
+
+	Object			**tmp;
+	int				c;
+	bool			found;
+	t_pos			t;
 
 	i = -1;
+	found = false;
 	o = Game::getInstance()->getObjects();
 	count = Object::getCount();
 	map = Game::getInstance()->getMap()->getTab();
@@ -256,12 +265,78 @@ void					AIManager::simulate(void)
  		char	**mapTmp = mapDup(map, w, h);
 		if (o[i]->getType() == LION)
 		{
-			o[i]->setTarget(Game::getInstance()->getAntilopes()->getFlag());
+			if (!o[i]->isHunting)
+			{
+				t = Game::getInstance()->getAntilopes()->getFlag();
+				if (o[i]->getTarget().x != t.x
+					&& o[i]->getTarget().x != t.y)
+					o[i]->setTarget(t);
+				tmp = Game::getInstance()->getAntilopes()->getMembers();
+				c = Game::getInstance()->getAntilopes()->getMemberCount();
+				
+			}
+			else
+			{
+				for (int j = 0; j < c; j++)
+				{
+					if (distance(tmp[j]->getPos(), o[i]->getPos()) < 10)
+						break ;
+					t = tmp[j]->getPos();
+					o[i]->isHunting = false;
+					t = Game::getInstance()->getLions()->getFlag();
+					o[i]->setTarget(t);
+				}
+			}
+// 			Object **tmp;
+// 			int		c;
+// 
+// 			tmp = Game::getInstance()->getAntilopes()->getMembers();
+// 			c = Game::getInstance()->getAntilopes()->getMemberCount();
+// 			if ((rand() % 100) <= 90)
+// 					t = tmp[rand() % c]->getPos();
+			o[i]->setTarget(t);
 		}
 		else if (o[i]->getType() == ANTILOPE)
 		{
-			
-			o[i]->setTarget(Game::getInstance()->getLions()->getFlag());
+			if ((dynamic_cast<Antilope*>(o[i]))->getIsLeader())
+			{
+				tmp = Game::getInstance()->getLions()->getMembers();
+				c = Game::getInstance()->getLions()->getMemberCount();
+				if (!o[i]->isHunting)
+				{
+					t = Game::getInstance()->getLions()->getFlag();
+					if (o[i]->getTarget().x != t.x
+						&& o[i]->getTarget().x != t.y)
+						o[i]->setTarget(t);
+					tmp = Game::getInstance()->getLions()->getMembers();
+					c = Game::getInstance()->getLions()->getMemberCount();
+					for (int j = 0; j < c; j++)
+					{
+						if (distance(tmp[j]->getPos(), o[i]->getPos()) < 10)
+						{
+							if ((rand() % 100) <= 90)
+							{
+								t = tmp[j]->getPos();
+								o[i]->isHunting = true;
+								o[i]->setTarget(t);
+								break ;
+							}
+						}
+					}
+				}
+				else
+				{
+					for (int j = 0; j < c; j++)
+					{
+						if (distance(tmp[j]->getPos(), o[i]->getPos()) < 10)
+							break ;
+						t = tmp[j]->getPos();
+						o[i]->isHunting = false;
+						t = Game::getInstance()->getLions()->getFlag();
+						o[i]->setTarget(t);
+					}
+				}
+			}
 		}
 		if (o[i]->getTarget().x != -1
 				&& o[i]->getTarget().y != -1)

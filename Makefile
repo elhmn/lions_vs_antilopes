@@ -19,7 +19,7 @@ INCLUDES = -I $(INCLUDE_PATH)
 
 FLAGS = -Wall -Werror -Wextra
 
-CC = g++
+CC = clang++
 
 all: $(NAME)
 

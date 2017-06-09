@@ -27,6 +27,7 @@ class		Object
 	e_objType			_type;
 	t_pos				_pos;
 	t_pos				_nextPos;
+	t_pos				_target;
 	float				_speed;
 	bool				_hasFlag;
 
@@ -40,6 +41,8 @@ class		Object
 
 	public :
 	
+	bool				isHunting;
+
 /*
 ** Constructors
 */
@@ -68,9 +71,12 @@ class		Object
 	const e_objType		getType(void) const;
 	const t_pos			&getPos(void) const;
 	const t_pos			&getNextPos(void) const;
+	const t_pos			&getTarget(void) const;
 	const float			getSpeed(void) const;
 
 	// Setters
+	void				setTarget(const int x, const int y);
+	void				setTarget(const t_pos target);
 	void				setPos(const int x, const int y);
 	void				setNextPos(const int x, const int y);
 /*

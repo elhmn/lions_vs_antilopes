@@ -1,13 +1,14 @@
 #ifndef RENDERMANAGER_CLASS_H
 # define RENDERMANAGER_CLASS_H
 
-#define CLEAR()			printf("\033[H\033[2J")
+#define CLEAR()			std::cout <<"\033[H\033[2J"
 
 # define M_RENDER_EMPTY				" "
 # define M_RENDER_BORD_H			"-"
 # define M_RENDER_BORD_V			"|"
 # define M_RENDER_BLOCK				"."
 
+// ☻ ☺  when got flag in Unicode
 
 #ifdef UNICODE
 	#  define M_RENDER_FLAG_L		"◇"

@@ -4,6 +4,7 @@
 #include "Object.class.h"
 #include "Game.class.h"
 #include "Team.class.h"
+#include "Antilope.class.h"
 #include "error.h"
 
 /*
@@ -99,8 +100,26 @@ static void				move(void)
 	}
 }
 
+static void				updateAntilopeFollowers()
+{
+	Object				**l;
+	int					count;
+
+	count = Game::getInstance()->getAntilopes()->getMemberCount();
+	l = Game::getInstance()->getAntilopes()->getMembers();
+	for (int i = 0; i < count; i++)
+	{
+		Antilope	*a;
+		a = dynamic_cast<Antilope*>(l[i]);
+		if (!a->getIsLeader())
+		{
+			a->setTarget(l[a->getLeaderID()]->getTarget());
+		}
+	}
+}
+
 void					ObjectManager::update(void)
 {
 	move();
-	std::cout << "ObjectManager update !" << std::endl;//_DEBUG_//
+	updateAntilopeFollowers();
 }

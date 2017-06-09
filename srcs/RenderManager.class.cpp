@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "RenderManager.class.h"
 #include "Game.class.h"
 #include "load_map.h"
@@ -100,4 +101,6 @@ void					RenderManager::render(void)
 		}
 		std::cout << std::endl;
 	}
+	std::string s = "LIONS 0 VS 0 ANTILOPES";
+	std::cout  << std::setw(w / 2 + s.length() / 2)  << std::right << s << std::endl;
 }
